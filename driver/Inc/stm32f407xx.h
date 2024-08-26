@@ -218,6 +218,7 @@ typedef struct {
 
 #define ENABLE								1
 #define DISABLE								0
+#define GPIO_PIN_SET						ENABLE
 
 
 

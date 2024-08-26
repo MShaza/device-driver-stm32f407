@@ -133,3 +133,56 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 			}
 
 }
+
+/*********************************************************************
+ * @fn					GPIO Read input Pin
+ * @brief				Read the value form the Input pin
+ * @Param				Peripheral base address, Pin Number
+ * @Return				uint8_t values present on pin
+ * @note				None
+ * */
+uint8_t GPIO_ReadFromInputPin(GPIO_RefDef_t *pGPIOx, uint8_t PinNumber){
+	uint8_t value;
+	value = (uint8_t)(pGPIOx->IDR >> PinNumber) & 0x00000001;
+	return value;
+
+}
+/*********************************************************************
+ * @fn					GPIO Read input Port
+ * @brief				Read the value form the Input Port
+ * @Param				Peripheral base address
+ * @Return				uint16_t values present on Port
+ * @note				None
+ * */
+uint16_t GPIO_ReadFromOutputPort(GPIO_RefDef_t *pGPIOx){
+	uint16_t value;
+	value = (uint16_t)(pGPIOx->IDR);
+	return value;
+
+}
+/*********************************************************************
+ * @fn					GPIO_WriteToOutputPin
+ * @brief				Write value to Output Pin
+ * @Param				Peripheral base address, Pin Number, value
+ * @Return				None
+ * @note				None
+ * */
+void GPIO_WriteToOutputPin(GPIO_RefDef_t *pGPIOx, uint8_t PinNumber, uint8_t value){
+	if(value == GPIO_PIN_SET){
+		pGPIOx->ODR |= (1 << PinNumber);
+	}
+	else{
+		pGPIOx->ODR |= ~(1 << PinNumber);
+	}
+}
+/*********************************************************************
+ * @fn					GPIO_WriteToOutputPort
+ * @brief				Write value to Output Port
+ * @Param				Peripheral base address, value
+ * @Return				None
+ * @note				None
+ * */
+void GPIO_WriteToOutputPort(GPIO_RefDef_t *pGPIOx, uint16_t value){
+	pGPIOx->ODR = value;
+}
+
