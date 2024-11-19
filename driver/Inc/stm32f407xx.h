@@ -11,6 +11,32 @@
 
 #define __v volatile
 
+// define the processor specific files
+
+// base address to enable the interrupt on NVIC Line
+#define NVIC_ISER0						((__v uint32_t*)0xE000E100)
+#define NVIC_ISER1						((__v uint32_t*)0xE000E104)
+#define NVIC_ISER2						((__v uint32_t*)0xE000E108)
+#define NVIC_ISER3						((__v uint32_t*)0xE000E10C)
+#define NVIC_ISER4						((__v uint32_t*)0xE000E110)
+#define NVIC_ISER5						((__v uint32_t*)0xE000E114)
+#define NVIC_ISER6						((__v uint32_t*)0xE000E118)
+#define NVIC_ISER7						((__v uint32_t*)0xE000E11C)
+
+// define the processor specific files
+// base address to disable the interrupt on NVIC line
+#define NVIC_ICER0						((__v uint32_t*)0XE000E180)
+#define NVIC_ICER1						((__v uint32_t*)0XE000E184)
+#define NVIC_ICER2						((__v uint32_t*)0XE000E188)
+#define NVIC_ICER3						((__v uint32_t*)0XE000E18C)
+#define NVIC_ICER4						((__v uint32_t*)0XE000E190)
+#define NVIC_ICER5						((__v uint32_t*)0XE000E194)
+#define NVIC_ICER6						((__v uint32_t*)0XE000E198)
+#define NVIC_ICER7						((__v uint32_t*)0XE000E19C)
+
+#define NVIC_PR_BASE_ADDR				((__v uint32_t*)0xE000E400)
+#define NO_PR_BITS_IMPLEMENTATION		4
+
 #define FLASH_BASE_ADDR 				0x08000000U 		// Base address of flash memory
 #define SRAM1_BASE_ADDR					0x20000000U			// Base address of SRAM1
 #define SRAM_BASE_ADDR					SRAM1_ADDR
@@ -111,6 +137,29 @@ typedef struct {
 
 }RCC_RefDef_t;
 
+/*
+ * Define type struct for the EXTI registers
+ * */
+typedef struct{
+	__v uint32_t IMR;				//Interrupt Mask Register
+	__v uint32_t EMR;				//External Mask Register
+	__v uint32_t RTSR;				//Rising Trigger Selection Register
+	__v uint32_t FTSR;				//Falling Trigger selection Register
+	__v uint32_t SWIER;				//Software Interrupt Trigger Register
+	__v uint32_t PR;				//Penging Register
+
+}EXTI_RefDef_t;
+/*
+ * Define type struct for the SYSCFG registers
+ * */
+typedef struct{
+	__v uint32_t MEMRMP;				//Memory Remap Register
+	__v uint32_t PMC;					//External Mask Register
+	__v uint32_t SYSCFG_EXTICR[4];		//Rising Trigger Selection Register
+	__v uint32_t CMPCR;					//Falling Trigger selection Register
+
+
+}SYSCFG_RefDef_t;
 /**
  * Type cast GPIO Peripheral to the struct type
  *
@@ -128,6 +177,9 @@ typedef struct {
 #define GPIOK 							((GPIO_RefDef_t*)GPIOK_BASE_ADDR)
 
 #define RCC								((RCC_RefDef_t*)RCC_BASE_ADDR)
+#define EXTI							((EXTI_RefDef_t*)EXT1_BASE_ADDR)
+#define SYSCFG							((SYSCFG_RefDef_t*)SYSCFG_BASE_ADDR)
+
 
 /*
  * Enable clock for the GPIO PIN
@@ -213,6 +265,38 @@ typedef struct {
  * Disable clock for the SYS_CFG PIN
  * */
 #define SYS_CFG_PCLK_DI()					RCC->APB2ENR &= ~(1<<14)
+
+// COnvert base address if GPIO to port code
+
+#define GPIO_BASE_ADDR_TO_PORT_CODE(x)			( (x == GPIOA)?0:\
+											(x == GPIOB)?1:\
+											(x == GPIOC)?2:\
+											(x == GPIOD)?3:\
+											(x == GPIOE)?4:\
+											(x == GPIOF)?5:\
+											(x == GPIOG)?6:\
+											(x == GPIOH)?7:\
+											(x == GPIOI)?8:\
+											(x == GPIOJ)?9:\
+											(x == GPIOK)?10:0 )
+
+// IRQ NUMBER ASSOCIATE WITH EXTI
+
+#define IRQ_NO_EXTI0						6
+#define IRQ_NO_EXTI1						7
+#define IRQ_NO_EXTI2						8
+#define IRQ_NO_EXTI3						9
+#define IRQ_NO_EXTI4						10
+#define IRQ_NO_EXTI9_5						23
+#define IRQ_NO_EXTI5_10						40
+#define IRQ_NO_EXTI_PVD						1
+#define IRQ_NO_EXTI_TAMP_STAMP				2
+#define IRQ_NO_EXTI_RTC_WKUP				3
+#define IRQ_NO_EXTI_RTC_ALRM				41
+#define IRQ_NO_EXTI_OTG_FS_WKUP				42
+#define IRQ_NO_EXTI_ETHR_WKUP				62
+#define IRQ_NO_EXTI_OTG_HS_WKUP				76
+
 
 //Some basic Macros
 

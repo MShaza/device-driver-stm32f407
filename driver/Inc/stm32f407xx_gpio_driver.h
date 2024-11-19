@@ -19,6 +19,9 @@
 #define GPIOx_PIN_SET_OUT					1			//Set Output Mode
 #define GPIOx_PIN_SET_ALT_FN				2			//Set Alternate Function
 #define GPIOx_PIN_SET_ANG					3			//Set Pin as Analogue
+#define GPIOx_PIN_SET_IT_FT					4			//interrupt set as falling trigger
+#define GPIOx_PIN_SET_IT_RT					5			//interrupt set as Rising trigger
+#define GPIOx_PIN_SET_IT_RFT				6			//interrupt set as rising and falling trigger
 
 //@ Set the GPIO Output Speed Register
 #define GPIOx_PIN_OUT_LS					0			//Low Speed
@@ -62,8 +65,9 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RefDef_t *pGPIOx, uint8_t PinNumber);
 uint16_t GPIO_ReadFromOutputPort(GPIO_RefDef_t *pGPIOx);
 void GPIO_WriteToOutputPin(GPIO_RefDef_t *pGPIOx, uint8_t PinNumber, uint8_t value);
 void GPIO_WriteToOutputPort(GPIO_RefDef_t *pGPIOx, uint16_t value);
-void GPIO_ToggleOutputPin(GPIO_RefDef_t *pGPIOx, uint8_t PinNUmber);
-void GPIO_IRQConfig(uint8_t IRQNUmber, uint8_t IRQPriority, uint8_t EnorDi);
+void GPIO_ToggleOutputPin(GPIO_RefDef_t *pGPIOx, uint8_t PinNumber);
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
+void  GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t Interrupt_Priority);
 void GPIO_IRQHandling(uint8_t PinNumber);
 
 #endif /* INC_STM32F407XX_GPIO_DRIVER_H_ */
