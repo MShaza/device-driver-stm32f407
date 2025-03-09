@@ -1,17 +1,20 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+# Toolchain: GNU Tools for STM32 (13.3.rel1)
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../driver/Src/stm32f407xx_gpio_driver.c 
+../driver/Src/stm32f407xx_gpio_driver.c \
+../driver/Src/stm32f407xx_spi_driver.c 
 
 OBJS += \
-./driver/Src/stm32f407xx_gpio_driver.o 
+./driver/Src/stm32f407xx_gpio_driver.o \
+./driver/Src/stm32f407xx_spi_driver.o 
 
 C_DEPS += \
-./driver/Src/stm32f407xx_gpio_driver.d 
+./driver/Src/stm32f407xx_gpio_driver.d \
+./driver/Src/stm32f407xx_spi_driver.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ driver/Src/%.o driver/Src/%.su driver/Src/%.cyclo: ../driver/Src/%.c driver/Src/
 clean: clean-driver-2f-Src
 
 clean-driver-2f-Src:
-	-$(RM) ./driver/Src/stm32f407xx_gpio_driver.cyclo ./driver/Src/stm32f407xx_gpio_driver.d ./driver/Src/stm32f407xx_gpio_driver.o ./driver/Src/stm32f407xx_gpio_driver.su
+	-$(RM) ./driver/Src/stm32f407xx_gpio_driver.cyclo ./driver/Src/stm32f407xx_gpio_driver.d ./driver/Src/stm32f407xx_gpio_driver.o ./driver/Src/stm32f407xx_gpio_driver.su ./driver/Src/stm32f407xx_spi_driver.cyclo ./driver/Src/stm32f407xx_spi_driver.d ./driver/Src/stm32f407xx_spi_driver.o ./driver/Src/stm32f407xx_spi_driver.su
 
 .PHONY: clean-driver-2f-Src
 

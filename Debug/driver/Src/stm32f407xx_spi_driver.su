@@ -1,0 +1,4 @@
+../driver/Src/stm32f407xx_spi_driver.c:3:6:SPI_Clock_Control	16	static
+../driver/Src/stm32f407xx_spi_driver.c:33:6:SPI_init	24	static
+../driver/Src/stm32f407xx_spi_driver.c:58:6:sendData	24	static
+../driver/Src/stm32f407xx_spi_driver.c:73:9:checkSPIFlag	16	static

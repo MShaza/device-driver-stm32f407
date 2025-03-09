@@ -76,6 +76,7 @@
 
 /********** BASE ADDRESS OF ALL THE PERIPHERAL HANIGING TO APB2 BUS ***************/
 #define SPI1_BASE_ADDR					(APB2_PERIPH_BASE_ADDR + 0x3000)
+#define SPI4_BASE_ADDR					(APB2_PERIPH_BASE_ADDR + 0x3400)
 #define USART1_BASE_ADDR				(APB2_PERIPH_BASE_ADDR + 0x1000)
 #define USART6_BASE_ADDR				(APB2_PERIPH_BASE_ADDR + 0x1400)
 #define EXT1_BASE_ADDR					(APB2_PERIPH_BASE_ADDR + 0x3C00)
@@ -160,6 +161,22 @@ typedef struct{
 
 
 }SYSCFG_RefDef_t;
+/*
+ * Define type struct for the SPI registers
+ * */
+typedef struct{
+	__v uint32_t SPI_CR1;				// SPI 1 control register
+	__v uint32_t SPI_CR2;				// SPI 2 control register
+	__v uint32_t SPI_SR;				// SPI status register
+	__v uint32_t SPI_DR;				// SPI Data register
+	__v uint32_t SPI_CRCPR;				// SPI CRC polynomial register
+	__v uint32_t SPI_RXCRCR;			// SPI RX CRC register
+	__v uint32_t SPI_TXCRCR;			// SPI TX CRC register
+	__v uint32_t SPI_I3SCFGR;			// SPI_I2S configuration register
+	__v uint32_t SPI_I2SPR;				// SPI_I2S prescaler register
+
+
+}SPI_RefDef_t;
 /**
  * Type cast GPIO Peripheral to the struct type
  *
@@ -179,6 +196,10 @@ typedef struct{
 #define RCC								((RCC_RefDef_t*)RCC_BASE_ADDR)
 #define EXTI							((EXTI_RefDef_t*)EXT1_BASE_ADDR)
 #define SYSCFG							((SYSCFG_RefDef_t*)SYSCFG_BASE_ADDR)
+#define SPI1							((SPI_RefDef_t*)SPI1_BASE_ADDR)
+#define SPI2							((SPI_RefDef_t*)SPI2_BASE_ADDR)
+#define SPI3							((SPI_RefDef_t*)SPI3_BASE_ADDR)
+#define SPI4							((SPI_RefDef_t*)SPI4_BASE_ADDR)
 
 
 /*
@@ -207,6 +228,7 @@ typedef struct{
 #define SPI1_PCLK_EN()						RCC->APB2ENR |= (1<<12)
 #define SPI2_PCLK_EN()						RCC->APB1ENR |= (1<<14)
 #define SPI3_PCLK_EN()						RCC->APB1ENR |= (1<<15)
+#define SPI4_PCLK_EN()						RCC->APB2ENR |= (1<<13)
 
 /*
  * Enable clock for the USART/UART PIN
@@ -250,6 +272,7 @@ typedef struct{
 #define SPI1_PCLK_DI()						RCC->APB2ENR &= ~(1<<12)
 #define SPI2_PCLK_DI()						RCC->APB1ENR &= ~(1<<14)
 #define SPI3_PCLK_DI()						RCC->APB1ENR &= ~(1<<15)
+#define SPI4_PCLK_DI()						RCC->APB2ENR &= ~(1<<13)
 
 /*
  * Disable clock for the USART/UART PIN
@@ -303,11 +326,23 @@ typedef struct{
 #define ENABLE								1
 #define DISABLE								0
 #define GPIO_PIN_SET						ENABLE
+#define SET									ENABLE
+#define RESET								DISABLE
+#define FLAG_RESET							RESET
+#define FLAG_SET							SET
 
+/*********************************************************************************************
+ * BIT POSITION MACROS FOR SPI
+ * *******************************************************************************************/
 
-
-
-
+#define SPI_CR1_BIDIMODE 					15
+#define SPI_CR1_DFF							11
+#define SPI_CR1_RXONLY						10
+#define SPI_CR1_SSM							9
+#define SPI_CR1_BR							3
+#define SPI_CR1_MSTR						2
+#define SPI_CR1_CPOL						1
+#define SPI_CR1_CPHA						0
 #endif /* INC_STM32F407XX_H_ */
 
 
